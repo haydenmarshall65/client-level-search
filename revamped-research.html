@@ -60,7 +60,7 @@
 				<span class="icon-circle"><i class="fa-solid fa-diagram-project"></i></span>
 				<span class="topic-title">Social Network Analysis</span>
 			</button>
-			<button id="#wv" class="topic-card">
+			<button id="wv" class="topic-card" onClick="activate('#wv')">
 				<span class="icon-circle"><i class="fa-solid fa-person-harassing"></i></span>
 				<span class="topic-title">Workplace Violence</span>
 			</button>
@@ -74,7 +74,7 @@
 												 or even three<br/>
 												 or maybe four, who knows how long they are
 					</span><hr style="border:1px solid white; width:100%;">
-					<div class="research-buttons"><button class="research-btn">More Information</button><button class="research-btn"><i class="fa-solid fa-download"></i> Download</button></div>
+					<div class="research-buttons"><button class="research-btn"><i class="fa-solid fa-circle-play"></i>&nbsp;Video</button><button class="research-btn"><i class="fa-solid fa-download"></i> Download</button></div>
 				</div>
 			</div>
 			<div class="research-card">
@@ -85,7 +85,7 @@
 												 or even three<br/>
 												 or maybe four, who knows how long they are
 					</span><hr style="border:1px solid white; width:100%;">
-					<div class="research-buttons"><button class="research-btn">More Information</button><button class="research-btn"><i class="fa-solid fa-download"></i> Download</button></div>
+					<div class="research-buttons"><button class="research-btn"><i class="fa-solid fa-circle-play"></i>&nbsp;Video</button><button class="research-btn"><i class="fa-solid fa-download"></i> Download</button></div>
 				</div>
 			</div>
 			<div class="research-card">
@@ -96,7 +96,7 @@
 												 or even three<br/>
 												 or maybe four, who knows how long they are
 					</span><hr style="border:1px solid white; width:100%;">
-					<div class="research-buttons"><button class="research-btn">More Information</button><button class="research-btn"><i class="fa-solid fa-download"></i> Download</button></div>
+					<div class="research-buttons"><button class="research-btn" disabled><i class="fa-solid fa-circle-play"></i>&nbsp;Video</button><button class="research-btn"><i class="fa-solid fa-download"></i> Download</button></div>
 				</div>
 			</div>
 			<div class="research-card">
@@ -107,7 +107,7 @@
 												 or even three<br/>
 												 or maybe four, who knows how long they are
 					</span><hr style="border:1px solid white; width:100%;">
-					<div class="research-buttons"><button class="research-btn">More Information</button><button class="research-btn"><i class="fa-solid fa-download"></i> Download</button></div>
+					<div class="research-buttons"><button class="research-btn"><i class="fa-solid fa-circle-play"></i>&nbsp;Video</button><button class="research-btn"><i class="fa-solid fa-download"></i> Download</button></div>
 				</div>
 			</div>
 			<div class="research-card">
@@ -118,7 +118,7 @@
 												 or even three<br/>
 												 or maybe four, who knows how long they are
 					</span><hr style="border:1px solid white; width:100%;">
-					<div class="research-buttons"><button class="research-btn">More Information</button><button class="research-btn"><i class="fa-solid fa-download"></i> Download</button></div>
+					<div class="research-buttons"><button class="research-btn"><i class="fa-solid fa-circle-play"></i>&nbsp;Video</button><button class="research-btn"><i class="fa-solid fa-download"></i> Download</button></div>
 				</div>
 			</div>
 			<div class="research-card">
@@ -129,7 +129,7 @@
 												 or even three<br/>
 												 or maybe four, who knows how long they are
 					</span><hr style="border:1px solid white; width:100%;">
-					<div class="research-buttons"><button class="research-btn">More Information</button><button class="research-btn"><i class="fa-solid fa-download"></i> Download</button></div>
+					<div class="research-buttons"><button class="research-btn"><i class="fa-solid fa-circle-play"></i>&nbsp;Video</button><button class="research-btn"><i class="fa-solid fa-download"></i> Download</button></div>
 				</div>
 			</div>
 		</div>
@@ -444,6 +444,12 @@
 			`);
 		}
 
+		var buttons = document.querySelectorAll(".research-btn");
+		for(let i = 0; i < buttons.length; i++){
+			if(buttons[i].disabled === true){
+				buttons[i].style = "background:gray";
+			}
+		}
 	</script>
 </body>
 </html>
