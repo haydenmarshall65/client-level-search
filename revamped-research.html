@@ -152,6 +152,8 @@
 					   {id: "#drone",
 					 checked: false},
 					   {id: "#sna",
+					 checked: false},
+					   {id: "#wv",
 					 checked: false}];
 		
 		const papers = [
@@ -291,10 +293,9 @@
 			{
 				title: "Fitzgerald, Kelly (2023) A Framework For Understanding Disaster – Related Violence Against The Public Health Workforce: Literature Scan and Analysis. (Report No. IHS/CR-2022-2053). The Sam Houston State University Institute for Homeland Security.",
 				topic: "#wv",
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/A_Framework_for_Understanding_Disaster-Related_Violence_Against_the_Public_Health_Workforce.pdf",
-				video: ""
+				link: "https://ihsonline.org/Portals/0/Tech%20Papers/A_Framework_for_Understanding_Disaster-Related_Violence_Against_the_Public_Health_Workforce.pdf"
 			}
-		]
+		];
 		
 		for(let i = 0; i < topics.length; i++){
 			var topicElement = document.querySelector(topics[i].id)
@@ -370,6 +371,79 @@
 			}
 			}
 		}
+
+		function clearPaperContainer() {
+			document.getElementById("paper-container").innerHTML = "";
+		}
+
+		function orangePortion(fulltText, orangeText) {
+			var startOforangeText = fulltText.toLocaleLowerCase().indexOf(orangeText.toLocaleLowerCase());
+			var firstPart = fulltText.slice(0, startOforangeText);
+			var orangePart = fulltText.slice(startOforangeText, startOforangeText + orangeText.length);
+			var lastPart = fulltText.slice(startOforangeText + orangeText.length);
+			return `${firstPart}<span style='color: #f05432'>${orangePart}</span>${lastPart}`;
+		}
+
+		function search(){
+			clearPaperContainer();
+			var results = document.getElementById("results");
+			var resultCount = 0;
+			var selectedCategories = []
+			CategoryList.forEach((category)=>{
+				if(document.getElementById(category).checked == true){
+					selectedCategories.push(category);
+				}
+			});
+			papers.forEach((paper)=>{
+				var searchText = document.getElementById("search-text").value.toLocaleLowerCase();
+				if(paper.title.toLocaleLowerCase().includes(searchText)){
+					if(selectedCategories.length != 0){
+						for(i = 0; i < paper.Category.length; i++){
+							if(selectedCategories.includes(paper.topic[i])){
+								results.innerHTML += articleTemplate(orangePortion(paper.Title, searchText), paper.link);
+								resultCount++;
+								break;
+							}
+						}
+					}else{
+						results.innerHTML += articleTemplate(orangePortion(paper.Title, searchText), paper.link);
+						resultCount++;
+					}
+				}
+			});
+			if(resultCount == 0){
+				results.innerHTML = "<div>No results Found</div>";
+			}
+			var reshtml = `${resultCount} result${resultCount != 1 ? 's' : ''}`
+			document.getElementById("resultCount").innerHTML = reshtml;
+		}
+
+		document.getElementById("search-button").addEventListener("click", function(){
+			event.preventDefault();
+			search();
+		});
+
+		function articleTemplate(title, link){
+			return(`
+				<div class="research-card">
+					<span class="research-icon">
+						<i class="fa-regular fa-file fa-2x"/>
+					</span>
+					<div class="research-info">
+						<span class="research-title">${title}</span>
+						<hr style="border:1px solid white; width:100%;">
+						<div class="research-buttons">
+							<button class="research-btn">More Information</button>
+							<button class="research-btn">
+								<i class="fa-solid fa-download"/>
+								Download
+							</button>
+						</div>
+					</div>
+				</div>
+			`);
+		}
+
 	</script>
 </body>
 </html>
