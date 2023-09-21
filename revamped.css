@@ -19,7 +19,7 @@
 			flex-direction: column;
 			gap:10px;
 			overflow-y:scroll;
-			max-height: calc(6.25em * 9);
+			max-height: calc(6.25em * 10);
 		}
 		
 		#hamburger-menu{
