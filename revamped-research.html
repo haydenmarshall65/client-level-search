@@ -9,8 +9,8 @@
 <!--Healthcare, Transportation, Energy, Chemical, Drones, SNA, Crisis Management, Cybersecurity, Supply Chain, Workplace Violence-->
 <body>
 	<div id="search-container">
-			<input id="search" type="search" placeholder="Search..."/>
-			<button id="search-button" onClick="event.preventDefault()"><i class="fa-solid fa-magnifying-glass fa-2x"></i></button>
+			<input id="search"  placeholder="Search..."></input>
+			<button id="search-button"><i class="fa-solid fa-magnifying-glass fa-2x"></i></button>
 		</div>
 	<div id="resultCount"></div>
 	<div id="research-container">
@@ -239,16 +239,6 @@
 		}
 		
 		var topicCounter = 1;
-		var resultCount = 0;
-
-		papers.forEach((paper)=>{
-			if(paper.topic.includes('#cybersecurity')){
-				document.getElementById("paper-container").innerHTML += articleTemplate(paper.title,  paper.link);
-				resultCount++;
-			}
-		});
-		var reshtml = `${resultCount} result${resultCount != 1 ? 's' : ''}`
-		document.getElementById("resultCount").innerHTML = reshtml;
 		
 		function activate(topic) {
 			event.preventDefault();
@@ -301,15 +291,14 @@
 		function widthChange(mql){
 			const topicCards = document.querySelectorAll(".topic-card");
 			if(mql.matches){
-			
-			for(let i = 1; i < topicCards.length; i++){
-				topicCards[i].style.display="none";
-			}
+				for(let i = 1; i < topicCards.length; i++){
+					topicCards[i].style.display="none";
+				}
 			}
 			else{
 				for(let i = 1; i < topicCards.length; i++){
-				topicCards[i].style.display="flex";
-			}
+					topicCards[i].style.display="flex";
+				}
 			}
 		}
 
@@ -338,15 +327,15 @@
 			});
 			console.log(selectedCategories)
 			var searchText = document.getElementById("search").value.toLocaleLowerCase();
+			console.log(searchText);
 			papers.forEach((paper)=>{
 				if(paper.title.toLocaleLowerCase().includes(searchText)){
 					for(i = 0; i < paper.topic.length; i++){
-						
 						if(selectedCategories.includes(paper.topic[i])){
 							if(searchText){
-								results.innerHTML += articleTemplate(orangePortion(paper.title, searchText),  paper.link);
+								results.innerHTML += articleTemplate(orangePortion(paper.title, searchText), paper.video, paper.link);
 							}else{
-								results.innerHTML += articleTemplate(paper.title,  paper.link);
+								results.innerHTML += articleTemplate(paper.title, paper.video, paper.link);
 							}
 							resultCount++;
 							break;
@@ -366,7 +355,16 @@
 			search();
 		});
 
-		function articleTemplate(title, link){
+		//document.getElementById("add all categories to search on click")
+
+		document.getElementById("search").addEventListener("keypress", function(event) {
+			if (event.key === "Enter") {
+				event.preventDefault();
+				search();
+			}
+		});
+
+		function articleTemplate(title, video, link){
 			return(`
 				<div class="research-card">
 					<span class="research-icon">
@@ -376,11 +374,12 @@
 						<span class="research-title">${title}</span>
 						<hr style="border:1px solid white; width:100%;">
 						<div class="research-buttons">
-							<button class="research-btn" onclick="">
+							<button class="research-btn" ${video ? `onclick="window.open('${video}')"` :
+							`style="background:gray;" disabled`}>
 								<i class="fa-solid fa-circle-play"></i>
 								&nbsp;Video
 							</button>
-							<button class="research-btn" onclick="window.open(${link})">
+							<button class="research-btn" onclick="window.open('${link}')">
 								<i class="fa-solid fa-download"></i>
 								Download
 							</button>
@@ -390,12 +389,8 @@
 			`);
 		}
 
-		var buttons = document.querySelectorAll(".research-btn");
-		for(let i = 0; i < buttons.length; i++){
-			if(buttons[i].disabled === true){
-				buttons[i].style = "background:gray";
-			}
-		}
+		search();
+
 	</script>
 </body>
 </html>
