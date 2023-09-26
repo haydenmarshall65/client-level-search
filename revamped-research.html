@@ -9,10 +9,14 @@
 <!--Healthcare, Transportation, Energy, Chemical, Drones, SNA, Crisis Management, Cybersecurity, Supply Chain, Workplace Violence-->
 <body>
 	<div id="search-container">
-			<input id="search"  placeholder="Search..."></input>
-			<button id="search-button"><i class="fa-solid fa-magnifying-glass fa-2x"></i></button>
-		</div>
-	<div id="resultCount"></div>
+		<input id="search"  placeholder="Search..."></input>
+		<button id="search-button"><i class="fa-solid fa-magnifying-glass fa-2x"></i></button>
+	</div>
+	<div>
+		<span id="resultCount"></span>
+		<span id="search-for"></span>
+		<span id="clear-text" style="color:blue; cursor: pointer;"></span>
+	</div>
 	<div id="research-container">
 		
 		<div id="topic-container">
@@ -222,9 +226,15 @@
 				video: "https://www.youtube.com/watch?v=Hmd4LuKplI4"
 			},
 			{
-				title: "Fitzgerald, Kelly (2023) A Framework For Understanding Disaster – Related Violence Against The Public Health Workforce: Literature Scan and Analysis. (Report No. IHS/CR-2022-2053). The Sam Houston State University Institute for Homeland Security.",
+				title: "Fitzgerald, Kelly (2023). A Framework For Understanding Disaster – Related Violence Against The Public Health Workforce: Literature Scan and Analysis. (Report No. IHS/CR-2022-2053). The Sam Houston State University Institute for Homeland Security.",
 				topic: ["#wv"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/A_Framework_for_Understanding_Disaster-Related_Violence_Against_the_Public_Health_Workforce.pdf"
+			},
+			{
+				title: "Allen, Bryce (2023). Examining Use Cases for Drones (UAS/RPAS) at the Texas Medical Center. The Sam Houston State University Institute for Homeland Security.",
+				topic: ["#drone"],
+				link: "https://ihsonline.org/Portals/0/Tech Papers/Drone Research_BAllen.pdf?ver=E8yqIVskvgd7wJs7_BtLrw%3d%3d",
+				video: "https://www.youtube.com/watch?v=1jnFMcyDFoQ"
 			}
 		];
 		
@@ -329,7 +339,6 @@
 			});
 			console.log(selectedCategories)
 			var searchText = document.getElementById("search").value.toLocaleLowerCase();
-			console.log(searchText);
 			papers.forEach((paper)=>{
 				if(paper.title.toLocaleLowerCase().includes(searchText)){
 					for(i = 0; i < paper.topic.length; i++){
@@ -348,8 +357,17 @@
 			if(resultCount == 0){
 				results.innerHTML = "<div>No results Found</div>";
 			}
-			reshtml = `${resultCount} result${resultCount != 1 ? 's' : ''}`
+			var reshtml = `${resultCount} result${resultCount != 1 ? 's' : ''}`
 			document.getElementById("resultCount").innerHTML = reshtml;
+			var searchFor = document.getElementById("search-for");
+			var clearText = document.getElementById("clear-text");
+			if(searchText){
+				searchFor.innerHTML = ` searching for "${searchText}".`;
+				clearText.innerHTML = `<u>clear keyword(s)</u>`;
+			}else{
+				searchFor.innerHTML = ` searching for all.`;
+				clearText.innerHTML = '';
+			}
 		}
 
 		document.getElementById("search-button").addEventListener("click", function(){
@@ -360,6 +378,14 @@
 		document.getElementById("search").addEventListener("keypress", function(event) {
 			if (event.key === "Enter") {
 				event.preventDefault();
+				search();
+			}
+		});
+
+		document.getElementById("clear-text").addEventListener("click", function(){
+			if(document.getElementById("clear-text").innerHTML){
+				event.preventDefault();
+				document.getElementById("search").value = '';
 				search();
 			}
 		});
