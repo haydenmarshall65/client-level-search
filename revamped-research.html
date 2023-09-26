@@ -9,8 +9,13 @@
 <!--Healthcare, Transportation, Energy, Chemical, Drones, SNA, Crisis Management, Cybersecurity, Supply Chain, Workplace Violence-->
 <body>
 	<div id="search-container">
-			<input id="search" type="search" placeholder="Search..."/>
-			<button onClick="event.preventDefault()"><i class="fa-solid fa-magnifying-glass fa-2x"></i></button>
+		<input id="search"  placeholder="Search..."></input>
+		<button id="search-button"><i class="fa-solid fa-magnifying-glass fa-2x"></i></button>
+	</div>
+	<div>
+		<span id="resultCount"></span>
+		<span id="search-for"></span>
+		<span id="clear-text" style="color:blue; cursor: pointer;"></span>
 	</div>
 	<div id="research-container">
 		
@@ -62,78 +67,11 @@
 				<span class="topic-title">Workplace Violence</span>
 			</button>
 		</div>
-		<div id="paper-container">
-			<div class="research-card">
-				<span class="research-icon"><i class="fa-regular fa-file fa-2x"></i></span>
-				<div class="research-info">
-					<span class="research-title">Article Name these can get very long<br/>
-												 almost two lines long<br/>
-												 or even three<br/>
-												 or maybe four, who knows how long they are
-					</span><hr style="border:1px solid white; width:100%;">
-					<div class="research-buttons"><button class="research-btn"><i class="fa-solid fa-circle-play"></i>&nbsp;Video</button><button class="research-btn"><i class="fa-solid fa-download"></i> Download</button></div>
-				</div>
-			</div>
-			<div class="research-card">
-				<span class="research-icon"><i class="fa-regular fa-file fa-2x"></i></span>
-				<div class="research-info">
-					<span class="research-title">Article Name these can get very long<br/>
-												 almost two lines long<br/>
-												 or even three<br/>
-												 or maybe four, who knows how long they are
-					</span><hr style="border:1px solid white; width:100%;">
-					<div class="research-buttons"><button class="research-btn"><i class="fa-solid fa-circle-play"></i>&nbsp;Video</button><button class="research-btn"><i class="fa-solid fa-download"></i> Download</button></div>
-				</div>
-			</div>
-			<div class="research-card">
-				<span class="research-icon"><i class="fa-regular fa-file fa-2x"></i></span>
-				<div class="research-info">
-					<span class="research-title">Article Name these can get very long<br/>
-												 almost two lines long<br/>
-												 or even three<br/>
-												 or maybe four, who knows how long they are
-					</span><hr style="border:1px solid white; width:100%;">
-					<div class="research-buttons"><button class="research-btn" disabled><i class="fa-solid fa-circle-play"></i>&nbsp;Video</button><button class="research-btn"><i class="fa-solid fa-download"></i> Download</button></div>
-				</div>
-			</div>
-			<div class="research-card">
-				<span class="research-icon"><i class="fa-regular fa-file fa-2x"></i></span>
-				<div class="research-info">
-					<span class="research-title">Article Name these can get very long<br/>
-												 almost two lines long<br/>
-												 or even three<br/>
-												 or maybe four, who knows how long they are
-					</span><hr style="border:1px solid white; width:100%;">
-					<div class="research-buttons"><button class="research-btn"><i class="fa-solid fa-circle-play"></i>&nbsp;Video</button><button class="research-btn"><i class="fa-solid fa-download"></i> Download</button></div>
-				</div>
-			</div>
-			<div class="research-card">
-				<span class="research-icon"><i class="fa-regular fa-file fa-2x"></i></span>
-				<div class="research-info">
-					<span class="research-title">Article Name these can get very long<br/>
-												 almost two lines long<br/>
-												 or even three<br/>
-												 or maybe four, who knows how long they are
-					</span><hr style="border:1px solid white; width:100%;">
-					<div class="research-buttons"><button class="research-btn"><i class="fa-solid fa-circle-play"></i>&nbsp;Video</button><button class="research-btn"><i class="fa-solid fa-download"></i> Download</button></div>
-				</div>
-			</div>
-			<div class="research-card">
-				<span class="research-icon"><i class="fa-regular fa-file fa-2x"></i></span>
-				<div class="research-info">
-					<span class="research-title">Article Name these can get very long<br/>
-												 almost two lines long<br/>
-												 or even three<br/>
-												 or maybe four, who knows how long they are
-					</span><hr style="border:1px solid white; width:100%;">
-					<div class="research-buttons"><button class="research-btn"><i class="fa-solid fa-circle-play"></i>&nbsp;Video</button><button class="research-btn"><i class="fa-solid fa-download"></i> Download</button></div>
-				</div>
-			</div>
-		</div>
+		<div id="paper-container"></div>
 	</div>
 	<script>
 		const topics = [{id: "#transportation",
-					  checked: true},
+					  checked: false},
 					 {id: "#energy",
 					 checked: false},
 					 {id: "#chemical",
@@ -143,155 +81,162 @@
 					   {id: "#supply-chain",
 					 checked: false},
 					   {id: "#cybersecurity",
-					 checked: false},
+					 checked: true},
 					   {id: "#cm",
 					 checked: false},
 					   {id: "#drone",
 					 checked: false},
 					   {id: "#sna",
+					 checked: false},
+					   {id: "#wv",
 					 checked: false}];
 		
 		const papers = [
 			{
 				title: "Tabkhivayghan, Hamed (2022). Algorithms and Dataset for Anomaly Detection in Smart Video Surveillance for Infrastructure Safety (Report No. IHS/CR-2022-2038). The Sam Houston State University Institute for Homeland Security.",
-				topic: "#cybersecurity",
+				topic: ["#cybersecurity"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/Technical%20Paper%20-%20Anomaly%20Detection.pdf"
 			},
 			{
 				title: "Shashidhar, N. & Varol, C. (2022). Ransomware Prevention and Defense: A Hardening Guide for Small and Medium – Sized Businesses (Report No. IHS/CR-2022-2037). The Sam Houston State University Institute for Homeland Security.",
-				topic: "#cybersecurity",
+				topic: ["#cybersecurity"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/IHS_Ransomware_SMB_WhitePaper_Final.pdf",
 				video: "https://www.youtube.com/watch?v=qcKC8EW4JI4"
 			},
 			{
 				title: "Vaughn, Michael S. (2022). Ransomware: A Contemporary Security Threat. (Report No. IHS/CR-2022-2045). The Sam Houston State University Institute for Homeland Security.",
-				topic: "#cybersecurity",
+				topic: ["#cybersecurity"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/Ransomware_Contemporary%20Threat.pdf"
 			},
 			{
 				title: "Baker, Natalie D. (2022). Business Continuity and Resilience in Times of Crises: The Importance of Disaster Panic Myth – Busting (Report No. IHS/CR-2022-2201). The Sam Houston State University Institute for Homeland Security.",
-				topic: "#cm",
+				topic: ["#cm"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/BusinessContinuity_Disaster%20Panic%20Myth%20Busting.pdf"
 			},
 			{
 				title: "Lynn, Scott (2022). Texas Critical Infrastructure Supply Chain Protection: Reaching the Energy Industry (Report No. IHS/CR-2022-2031). The Sam Houston State University Institute for Homeland Security.",
-				topic: "#supply-chain",
+				topic: ["#supply-chain", "#energy"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/SupplyChain_Energy%20Supply%20Chain%20Protection.pdf"
 			},
 			{
 				title: "Lynn, Scott (2022). Texas Critical Infrastructure Supply Chain Protection: Reaching the Transportation Industry (Report No. IHS/CR-2022-2030). The Sam Houston State University Institute for Homeland Security.",
-				topic: "#supply-chain",
+				topic: ["#supply-chain", "#transportation"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/SupplyChain_Transportation%20Supply%20Chain%20Protection.pdf"
 			},
 			{
 				title: "Lundberg, Russell (2022). Incorporating Fear into Security Risk Assessments (Report No. IHS/CR-2022-2029). The Sam Houston State University Institute for Homeland Security.",
-				topic: "#cm",
+				topic: ["#cm"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/CritInfra_Establishing%20a%20Framework%20for%20Overlooked%20Risks.pdf",
 				video: "https://www.youtube.com/watch?v=T9dCgCLi4FE"
 			},
 			{
 				title: "Lundberg, Russell (2022). Including Terror in Terrorism Risk Assessments (Report No. IHS/CR-2022-2028). The Sam Houston State University Institute for Homeland Security.",
-				topic: "#cm",
+				topic: ["#cm"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/CritInfra_Psychological%20Damage-%20Small.pdf?ver=4wfYhPLj3StADVATDRnCGA%3d%3d&timestamp=1670517694029",
 				video: "https://www.youtube.com/watch?v=T9dCgCLi4FE"
 			},
 			{
 				title: "Lundberg, Russell (2022). The Importance of Mental Health Consequences in Terrorism Risk Assessment (Report No. IHS/CR-2022-2027). The Sam Houston State University Institute for Homeland Security.",
-				topic: "#cm",
+				topic: ["#cm"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/CritInfra_Psychological%20Damage-%20Large.pdf?ver=4wfYhPLj3StADVATDRnCGA%3d%3d&timestamp=1670518337102",
 				video: "https://www.youtube.com/watch?v=T9dCgCLi4FE"
 			},
 			{
 				title: "Lynn, Scott (2022). Texas Critical Infrastucture: Healthcare Physical Supply Chain Protection (Report No. IHS/CR-2022-2051). The Sam Houston State University Institute for Homeland Security.",
-				topic: "#supply-chain",
+				topic: ["#supply-chain", "#healthcare"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/SupplyChain_Healthcare%20Supply%20Chain%20Protection.pdf"
 			},
 			{
 				title: "Olonilua, Oluponmile (2022). Protecting Critical Infrastructure through Public Engagement. (Report No. IHS/CR-2022-2052). The Sam Houston State University Institute for Homeland Security.",
-				topic: "#cm",
+				topic: ["#cm"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/OloniluaCriticalInfrastructureTechnicalPaper.pdf",
 				video: "https://www.youtube.com/watch?v=-6NVvojz23c"
 			},
 			{
 				title: "McEntire, David A. (2022). The Impact of Winter Storm Uri on Chemical Facilities: Lessons Learned and Recommendations for Improved Resilience in the Private Sector (Report No. IHS/CR-2022-2032). The Sam Houston State University Institute for Homeland Security.",
-				topic: "#cm",
+				topic: ["#cm"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/1.1_Chemical%20Facilities.pdf",
 				video: "https://www.youtube.com/watch?v=BHR4_nnkboY"
 			},
 			{
 				title: "McEntire, David A. (2022). Transportation and Logistics Problems Experienced During and After Winter Storm Uri: Preparedness and Planning Lessons for the Public and Private Sectors (Report No IHS/CR-2022-2033). The Sam Houston State University Institute for Homeland Security.",
-				topic: "#cm",
+				topic: ["#cm", "#transportation"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2.1_Transportation%20and%20Logistics%20During%20and%20After%20Winter%20Storm%20Uri.pdf?ver=ecYSU7KggzHmtd1f7WimfA%3d%3d&timestamp=1670601433018",
 				video: "https://www.youtube.com/watch?v=vqqLQIojOCU"
 			},
 			{
 				title: "McEntire, David A. (2022). Public and Private Collaboration During and After Winter Storm Uri: Lessons for Improvement and Success (Report No. IHS/CR-2022-2034). The Sam Houston State University Institute for Homeland Security.",
-				topic: "#cm",
+				topic: ["#cm"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/3.1_Public%20and%20Private%20Partnerhips%20During%20and%20After%20Winter%20Storm%20Uri.pdf",
 				video: "https://www.youtube.com/watch?v=jbUPEVNXGkw"
 			},
 			{
 				title: "McEntire, David A. (2022). Emergency Medical Services and Winter Storm Uri: Recommendations to Help These Essential First Responders (Report No. IHS/CR-2022-2035). The Sam Houston State University Institute for Homeland Security.",
-				topic: "#cm",
+				topic: ["#cm", "#healthcare"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/4.1_EMS%20Response%20to%20Winter%20Storm%20Uri%20copy.pdf",
 				video: "https://www.youtube.com/watch?v=GUiYy-OYzLk"
 			},
 			{
 				title: "McEntire, David A. (2022). The Impact of Winter Storm Uri on Hospitals: Overcoming a Disaster Within a Disaster (Report No. IHS/CR-2022-2036). The Sam Houston State University Institute for Homeland Security.",
-				topic: "#cm",
+				topic: ["#cm", "#healthcare"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/5.1_The%20Impact%20of%20Winter%20Storm%20Uri%20on%20Hospitals.pdf?ver=ecYSU7KggzHmtd1f7WimfA%3d%3d&timestamp=1670601442381",
 				video: "https://www.youtube.com/watch?v=Hjdf4J6pi-s"
 			},
 			{
 				title: "Franco, Zeno (2022). Remote Detection of Anger: Wearables. (Report No. IHS/CR-2022-2046). The Sam Houston State University Institute for Homeland Security.",
-				topic: "#wv",
+				topic: ["#wv"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/WorkplaceViolence_Angry%20Gestures%20-%20Wearables.pdf"
 			},
 			{
 				title: "Franco, Zeno (2022). Remote Detection of Anger: CCTV and Large-Scale Sensor Networks. (Report No. IHS/CR-2022-2047). The Sam Houston State University Institute for Homeland Security.",
-				topic: "#wv",
+				topic: ["#wv"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/WorkplaceViolence_Angry%20Gestures%20Paper%20-%20CCTV.pdf"
 			},
 			{
 				title: "Franco, Zeno (2022). Mental Health Peer Support in Civilian Businesses (Report No. IHS/CR-2022-2048). The Sam Houston State University Institute for Homeland Security.",
-				topic: "#wv",
+				topic: ["#wv"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/WorkplaceViolence_Peer%20Support%20in%20Civilian%20Businesses.pdf"
 			},
 			{
 				title: "Franco, Zeno (2022). Mental Health Peer Support in First Responder Organizations (Report No. IHS/CR-2022-2049). The Sam Houston State University Institute for Homeland Security.",
-				topic: "#wv",
+				topic: ["#wv"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/WorkplaceViolence_Peer%20Support%20in%20First%20Responder%20Organizations.pdf"
 			},
 			{
 				title: "Lynn, Scott (2022). Texas Critical Infrastructure Supply Chain Protection: Reaching the Chemical Industry. (Report No. IHS/CR-2022-2050). The Sam Houston State University Institute for Homeland Security.",
-				topic: "#supply-chain",
+				topic: ["#supply-chain", "#chemical"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/SupplyChain_Chemical%20Supply%20Chain%20Protection%20221201.pdf"
 			},
 			{
 				title: "Jones, Nathan P., Sullivan, John P., & Davis, George W. (2022). Detecting Drone (Unmanned or Uncrewed Aerial System) Threats to Stadiums (Stadia) and Public Venues: Framing the Issue (Report No. IHS/CR-2022-2023). The Sam Houston State University Institute for Homeland Security.",
-				topic: "drone",
+				topic: ["#drone"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/Part%201-%20Framing%20the%20issue%20Drone%20Threats%20and%20Public%20Stadia.pdf",
 				video: "https://www.youtube.com/watch?v=kdG1zXrNJ18"
 			},
 			{
-				title: "Sullivan, John P., Jones, Nathan P., & Davis, George W. (2022). Detecting Drone (Unmanned or Uncrewed Aerial System) Threats to Stadiums (Stadia) and Public Venues: Operational Perspectives (Report No. IHS/CR-2022-2024). The Sam Houston State University Ins",
-				topic: "#drone",
+				title: "Sullivan, John P., Jones, Nathan P., & Davis, George W. (2022). Detecting Drone (Unmanned or Uncrewed Aerial System) Threats to Stadiums (Stadia) and Public Venues: Operational Perspectives (Report No. IHS/CR-2022-2024). The Sam Houston State University Institute for Homeland Security",
+				topic: ["#drone"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/Part%202-%20Operational%20Perspectives.pdf",
 				video: "https://www.youtube.com/watch?v=7LsvWiaPn_o"
 			},
 			{
 				title: "Davis, George W., Sullivan, John P., & Jones, Nathan P. (2022). Detecting Drone (Unmanned or Uncrewed Aerial System) Threats to Stadiums (Stadia) and Public Venues: Technical Implementation and Integration (Report No. IHS/CR-2022-2025). The Sam Houston State University Institute for Homeland Security.",
-				topic: "#drone",
+				topic: ["#drone"],
 				link: "https://ihsonline.org/Portals/0/Tech%20Papers/Part%203-%20Technical%20Implementation%20and%20Integration.pdf",
 				video: "https://www.youtube.com/watch?v=Hmd4LuKplI4"
 			},
 			{
-				title: "Fitzgerald, Kelly (2023) A Framework For Understanding Disaster – Related Violence Against The Public Health Workforce: Literature Scan and Analysis. (Report No. IHS/CR-2022-2053). The Sam Houston State University Institute for Homeland Security.",
-				topic: "#wv",
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/A_Framework_for_Understanding_Disaster-Related_Violence_Against_the_Public_Health_Workforce.pdf",
-				video: ""
+				title: "Fitzgerald, Kelly (2023). A Framework For Understanding Disaster – Related Violence Against The Public Health Workforce: Literature Scan and Analysis. (Report No. IHS/CR-2022-2053). The Sam Houston State University Institute for Homeland Security.",
+				topic: ["#wv", "#cm", "#healthcare"],
+				link: "https://ihsonline.org/Portals/0/Tech%20Papers/A_Framework_for_Understanding_Disaster-Related_Violence_Against_the_Public_Health_Workforce.pdf"
+			},
+			{
+				title: "Allen, Bryce (2023). Examining Use Cases for Drones (UAS/RPAS) at the Texas Medical Center. The Sam Houston State University Institute for Homeland Security.",
+				topic: ["#drone", "#healthcare"],
+				link: "https://ihsonline.org/Portals/0/Tech Papers/Drone Research_BAllen.pdf?ver=E8yqIVskvgd7wJs7_BtLrw%3d%3d",
+				video: "https://www.youtube.com/watch?v=1jnFMcyDFoQ"
 			}
-		]
+		];
 		
 		for(let i = 0; i < topics.length; i++){
 			var topicElement = document.querySelector(topics[i].id)
@@ -316,6 +261,7 @@
 						topics[i].checked = false;
 					}
 				})
+				search();
 			}
 			else if(element.classList.contains("selected") && topicCounter <= 1){
 				console.log("You cannot have less than 1 topic selected. Please select another before deselecting this topic.")
@@ -328,6 +274,7 @@
 						topics[i].checked = true;
 					}
 				})
+				search();
 			}
 		}
 		
@@ -356,24 +303,120 @@
 		function widthChange(mql){
 			const topicCards = document.querySelectorAll(".topic-card");
 			if(mql.matches){
-			
-			for(let i = 1; i < topicCards.length; i++){
-				topicCards[i].style.display="none";
-			}
+				for(let i = 1; i < topicCards.length; i++){
+					topicCards[i].style.display="none";
+				}
 			}
 			else{
 				for(let i = 1; i < topicCards.length; i++){
-				topicCards[i].style.display="flex";
-			}
+					topicCards[i].style.display="flex";
+				}
 			}
 		}
 
-		var buttons = document.querySelectorAll(".research-btn");
-		for(let i = 0; i < buttons.length; i++){
-			if(buttons[i].disabled === true){
-				buttons[i].style = "background:gray";
+		function clearPaperContainer() {
+			document.getElementById("paper-container").innerHTML = "";
+		}
+
+		function orangePortion(fulltText, orangeText) {
+			console.log(fulltText)
+			var startOforangeText = fulltText.toLocaleLowerCase().indexOf(orangeText.toLocaleLowerCase());
+			var firstPart = fulltText.slice(0, startOforangeText);
+			var orangePart = fulltText.slice(startOforangeText, startOforangeText + orangeText.length);
+			var lastPart = fulltText.slice(startOforangeText + orangeText.length);
+			return `${firstPart}<span style='color: #f05432'>${orangePart}</span>${lastPart}`;
+		}
+
+		function search(){
+			clearPaperContainer();
+			var results = document.getElementById("paper-container");
+			resultCount = 0;
+			var selectedCategories = []
+			topics.forEach((category)=>{
+				if(category.checked){
+					selectedCategories.push(category.id);
+				}
+			});
+			console.log(selectedCategories)
+			var searchText = document.getElementById("search").value.toLocaleLowerCase();
+			papers.forEach((paper)=>{
+				if(paper.title.toLocaleLowerCase().includes(searchText)){
+					for(i = 0; i < paper.topic.length; i++){
+						if(selectedCategories.includes(paper.topic[i])){
+							if(searchText){
+								results.innerHTML += articleTemplate(orangePortion(paper.title, searchText), paper.video, paper.link);
+							}else{
+								results.innerHTML += articleTemplate(paper.title, paper.video, paper.link);
+							}
+							resultCount++;
+							break;
+						}
+					}
+				}
+			});
+			if(resultCount == 0){
+				results.innerHTML = "<div>No results Found</div>";
+			}
+			var reshtml = `${resultCount} result${resultCount != 1 ? 's' : ''}`
+			document.getElementById("resultCount").innerHTML = reshtml;
+			var searchFor = document.getElementById("search-for");
+			var clearText = document.getElementById("clear-text");
+			if(searchText){
+				searchFor.innerHTML = ` searching for "${searchText}".`;
+				clearText.innerHTML = `<u>clear search</u>`;
+			}else{
+				searchFor.innerHTML = ``;
+				clearText.innerHTML = '';
 			}
 		}
+
+		document.getElementById("search-button").addEventListener("click", function(){
+			event.preventDefault();
+			search();
+		});
+
+		document.getElementById("search").addEventListener("keypress", function(event) {
+			if (event.key === "Enter") {
+				event.preventDefault();
+				search();
+			}
+		});
+
+		document.getElementById("clear-text").addEventListener("click", function(){
+			if(document.getElementById("clear-text").innerHTML){
+				event.preventDefault();
+				document.getElementById("search").value = '';
+				search();
+			}
+		});
+
+		function articleTemplate(title, video, link){
+			return(`
+				<div class="research-card">
+					<span class="research-icon">
+						<i class="fa-regular fa-file fa-2x"></i>
+					</span>
+					<div class="research-info">
+						<span class="research-title">${title}</span>
+						<hr style="border:1px solid white; width:100%;">
+						<div class="research-buttons">
+							<button class="research-btn" ${video ? `onclick="window.open('${video}')"` :
+							`style="background:gray;" disabled`}>
+								<i class="fa-solid fa-circle-play"></i>
+								&nbsp;Video
+							</button>
+							<button class="research-btn" onclick="window.open('${link}')">
+								<i class="fa-solid fa-download"></i>
+								Download
+							</button>
+						</div>
+					</div>
+				</div>
+			`);
+		}
+
+		search();
+
 	</script>
 </body>
 </html>
