@@ -83,7 +83,7 @@
 					   {id: "#supply-chain",
 					 checked: false},
 					   {id: "#cybersecurity",
-					 checked: true},
+					 checked: false},
 					   {id: "#cm",
 					 checked: false},
 					   {id: "#drone",
@@ -250,12 +250,12 @@
 			}
 		}
 		
-		var topicCounter = 1;
+		var topicCounter = 0;
 		
 		function activate(topic) {
 			event.preventDefault();
 			const element = document.querySelector(topic);
-			if(element.classList.contains("selected") && topicCounter > 1){
+			if(element.classList.contains("selected")){
 				element.classList.remove("selected");
 				topicCounter--;
 				let item = topics.find((t, i) => {
@@ -264,11 +264,7 @@
 					}
 				})
 				search();
-			}
-			else if(element.classList.contains("selected") && topicCounter <= 1){
-				console.log("You cannot have less than 1 topic selected. Please select another before deselecting this topic.")
-			}
-			else{
+			}else{
 				element.classList.add("selected");
 				topicCounter++;
 				let item = topics.find((t, i) => {
@@ -321,7 +317,6 @@
 		}
 
 		function orangePortion(fulltText, orangeText) {
-			console.log(fulltText)
 			var startOforangeText = fulltText.toLocaleLowerCase().indexOf(orangeText.toLocaleLowerCase());
 			var firstPart = fulltText.slice(0, startOforangeText);
 			var orangePart = fulltText.slice(startOforangeText, startOforangeText + orangeText.length);
@@ -339,12 +334,11 @@
 					selectedCategories.push(category.id);
 				}
 			});
-			console.log(selectedCategories)
 			var searchText = document.getElementById("search").value.toLocaleLowerCase();
 			papers.forEach((paper)=>{
 				if(paper.title.toLocaleLowerCase().includes(searchText)){
 					for(i = 0; i < paper.topic.length; i++){
-						if(selectedCategories.includes(paper.topic[i])){
+						if(selectedCategories.includes(paper.topic[i]) || selectedCategories.length == 0){
 							if(searchText){
 								results.innerHTML += articleTemplate(orangePortion(paper.title, searchText), paper.video, paper.link);
 							}else{
@@ -359,7 +353,8 @@
 			if(resultCount == 0){
 				results.innerHTML = "<div>No results Found</div>";
 			}
-			var reshtml = `${resultCount} result${resultCount != 1 ? 's' : ''}`
+			var reshtml = `${resultCount} result${resultCount != 1 ? 's' : ''}`+
+			`${topicCounter == 0 ? ', unfiltered.' : ` with ${topicCounter} active filter${topicCounter == 1 ? '' : 's'}.`}`;
 			document.getElementById("resultCount").innerHTML = reshtml;
 			var searchFor = document.getElementById("search-for");
 			var clearText = document.getElementById("clear-text");
