@@ -316,12 +316,22 @@
 			document.getElementById("paper-container").innerHTML = "";
 		}
 
-		function orangePortion(fulltText, orangeText) {
-			var startOforangeText = fulltText.toLocaleLowerCase().indexOf(orangeText.toLocaleLowerCase());
-			var firstPart = fulltText.slice(0, startOforangeText);
-			var orangePart = fulltText.slice(startOforangeText, startOforangeText + orangeText.length);
-			var lastPart = fulltText.slice(startOforangeText + orangeText.length);
-			return `${firstPart}<span style='color: #f05432'>${orangePart}</span>${lastPart}`;
+		function orangePortions(fulltText, orangeList) {
+			var htmlBuilt = '';
+			var lastIndex = 0;
+			var locations = [];
+			orangeList.forEach((term)=>{
+				locations.push([fulltText.toLocaleLowerCase().indexOf(term), term.length]);
+			});
+			locations.sort((a, b) => (a[0]-b[0]));
+			locations.forEach((location)=>{
+				var firstPart = fulltText.slice(lastIndex, location[0]);
+				lastIndex = location[0] + location[1];
+				var orangePart = fulltText.slice(location[0], lastIndex);
+				htmlBuilt += `${firstPart}<span style='color: #f05432'>${orangePart}</span>`;
+			});
+			htmlBuilt += fulltText.slice(lastIndex);
+			return htmlBuilt;
 		}
 
 		function search(){
@@ -334,13 +344,25 @@
 					selectedCategories.push(category.id);
 				}
 			});
-			var searchText = document.getElementById("search").value.toLocaleLowerCase();
+			var searchText = document.getElementById("search").value.toLocaleLowerCase().trim();
+			var searchList = searchText.split(" ");
+			searchList = [...new Set(searchList)];
+			var resultList = [];
 			papers.forEach((paper)=>{
-				if(paper.title.toLocaleLowerCase().includes(searchText)){
-					for(i = 0; i < paper.topic.length; i++){
+				var matches = []
+				for(var term = 0; term < searchList.length; term++){
+					if(paper.title.toLocaleLowerCase().includes(searchList[term])){
+						matches.push(searchList[term])
+					}
+				}
+				if(searchText && matches.length > 0 || searchText === ''){
+					for(var i = 0; i < paper.topic.length; i++){
 						if(selectedCategories.includes(paper.topic[i]) || selectedCategories.length == 0){
 							if(searchText){
-								results.innerHTML += articleTemplate(orangePortion(paper.title, searchText), paper.video, paper.link);
+								resultList.push([
+									matches.length,
+									articleTemplate(orangePortions(paper.title, matches), paper.video, paper.link)
+								]);
 							}else{
 								results.innerHTML += articleTemplate(paper.title, paper.video, paper.link);
 							}
@@ -350,6 +372,12 @@
 					}
 				}
 			});
+			if(searchText){
+				resultList.sort((a, b) => (b[0]-a[0]));
+				resultList.forEach((result)=>{
+					results.innerHTML += result[1];
+				});
+			}
 			if(resultCount == 0){
 				results.innerHTML = "<div>No results Found</div>";
 			}
