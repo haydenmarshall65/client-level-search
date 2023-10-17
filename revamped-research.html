@@ -319,7 +319,6 @@
 		}
 
 		function orangePortion(fulltText, orangeText) {
-			console.log(fulltText)
 			var startOforangeText = fulltText.toLocaleLowerCase().indexOf(orangeText.toLocaleLowerCase());
 			var firstPart = fulltText.slice(0, startOforangeText);
 			var orangePart = fulltText.slice(startOforangeText, startOforangeText + orangeText.length);
@@ -337,7 +336,6 @@
 					selectedCategories.push(category.id);
 				}
 			});
-			console.log(selectedCategories)
 			var searchText = document.getElementById("search").value.toLocaleLowerCase();
 			papers.forEach((paper)=>{
 				if(paper.title.toLocaleLowerCase().includes(searchText)){
