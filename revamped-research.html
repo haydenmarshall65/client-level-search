@@ -70,158 +70,28 @@
 		<div id="paper-container"></div>
 	</div>
 	<script>
-		const topics = [
-			{id: "#transportation", checked: false},
-			{id: "#energy", checked: false},
-			{id: "#chemical", checked: false},
-			{id: "#healthcare", checked: false},
-			{id: "#supply-chain", checked: false},
-		  {id: "#cybersecurity", checked: false},
-			{id: "#cm", checked: false},
-			{id: "#drone", checked: false},
-			{id: "#sna", checked: false},
-			{id: "#wv", checked: false}
-		];
+		const topics = [{id: "#transportation",
+					  checked: false},
+					 {id: "#energy",
+					 checked: false},
+					 {id: "#chemical",
+					 checked: false},
+					   {id: "#healthcare",
+					 checked: false},
+					   {id: "#supply-chain",
+					 checked: false},
+					   {id: "#cybersecurity",
+					 checked: true},
+					   {id: "#cm",
+					 checked: false},
+					   {id: "#drone",
+					 checked: false},
+					   {id: "#sna",
+					 checked: false},
+					   {id: "#wv",
+					 checked: false}];
 		
 		const papers = [
-			/*{
-				title: "bitna kim paper missing citation",
-				topic: [""],
-				link: "",
-				video: ""
-			},*/
-			{
-				title: "Clay, E. (2023) The Rise of Workplace Violence: Addressing Healthcare’s Greatest Threat Driving Transformational Change in Healthcare Security. (Report No. IHS/CR-2023-1004). The Sam Houston State University Institute for Homeland Security.",
-				topic: ["#wv", "#healthcare"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/WPV%20paper_%20FINAL_FINAL%20010823%20(003).pdf?ver=2XSa3ig3KO15N8Mdq4zUHg%3d%3d&timestamp=1697565071080",
-				video: "https://www.youtube.com/watch?v=HwwkEvLnAdg"
-			},
-			{
-				title: "Shashidhar, N. & Varol, C. (2023) Workplace Harassment and Violence: A Primer on Critical Strategies for Small and Medium-Sized Businesses. (Report No. IHS/CR-2023-1029). The Sam Houston State University Institute for Homeland Security.",
-				topic: ["#wv"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/Workplace%20Harassment%20and%20Violence%20-%20A%20Primer%20on%20Critical%20Strategies%20for%20Small%20and%20Medium-Sized%20Businesses%20-%20NS%20and%20CV.pdf?ver=uf4CkLCb7RvwQ40y3Za89g%3d%3d&timestamp=1697564864252",
-			},
-			{
-				title: "Dierker, B. R. (2023) Unseen Threats to Texas Critical Infrastructure. (Report No. IHS/CR-2023-1007). The Sam Houston State University Institute for Homeland Security.",
-				topic: ["#transportation"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/Unseen%20Threats%20to%20Texas%20Critical%20Infrastructure.pdf?ver=84IybHTDDiF2aPzmJhXJ1Q%3d%3d&timestamp=1697564736227",
-				video: "https://www.youtube.com/watch?v=8TbwBRVF1Mk"
-			},
-			{
-				title: "Liang, F., Liu, X., Kose, N. A., Gundogan, K., Yu, W. (2023) Towards Trajectory Prediction-based UAV Deployment in Smart Transportation Systems. (Report No. IHS/CR-2023-1010). The Sam Houston State University Institute for Homeland Security.",
-				topic: ["#transportation"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/Towards%20Trajectory%20Prediction.pdf?ver=CwhowyruxlFtkPEAL0YOpw%3d%3d&timestamp=1697564301458"
-			},
-			{
-				title: "Schafer, J. A. (2023) The Role of State and Local Law Enforcement in Critical Infrastructure Protection. (Report No. IHS/CR-2023-1026). The Sam Houston State University Institute for Homeland Security.",
-				topic: ["#transportation", "#cm"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/The%20Role%20of%20State%20and%20Local%20Law%20Enforcement%20in%20Critical%20Infrastructure%20Protection.pdf?ver=Z_-RRTboGruQJqRjGa6DOg%3d%3d&timestamp=1697564120873",
-				video: "https://www.youtube.com/watch?v=CNaKWkS55d8"
-			},
-			{
-				title: "Sullivan, J. P., Davis, G. W., & Adams, T. (2023). Drones and Port Security at the Port of Brownsville. Sam Houston State Institute for Homeland Security, (Report No. IHS/CR-2023-1001).",
-				topic: ["#drone"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/Technical%20Paper%20REV5.pdf?ver=Yidr36luzWEaJrgpt7Wnyw%3d%3d&timestamp=1697563796160"
-			},
-			{
-				title: "Kinney, A. B. & Lehmann, P. S. (2023) Toward a More Effective Policy Model for Responding to Workplace Violence in the Texas Healthcare System. (Report No. IHS/CR-2023-1018). The Sam Houston State University Institute for Homeland Security.",
-				topic: ["#wv", "#healthcare"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/Technical%20Paper%20Draft_Revised.pdf?ver=hv2XgpatM_LD22tzD-hWAw%3d%3d&timestamp=1697563537854",
-				video: "https://www.youtube.com/watch?v=-ApVNhgs3DI"
-			},
-			{
-				title: "Kennedy, J. P. (2023) Supply Chain Risks of Illicit Trade in Counterfeit Pharmaceuticals. (Report No. IHS/CR-2023-1016). The Sam Houston State University Institute for Homeland Security.",
-				topic: ["#supply-chain", "#healthcare"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/Supply%20Chain%20Risks%20-%20Counterfeit%20Pharma%20_%20Kennedy.pdf?ver=lG0r4xg-BwZmFntDD_Jw1A%3d%3d&timestamp=1697563260218",
-				video: "https://www.youtube.com/watch?v=uApXZQaOQqQ"
-			},
-			{
-				title: "Islam, ABM. R. & Islam, A. (2023) Ul. Social Network Analysis using Machine Learning. (Report No. IHS/CR-2023-1013). The Sam Houston State University Institute for Homeland Security.",
-				topic: ["#sna"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/SNA_Word.pdf?ver=blWIjYUEMSTTG8HTAnsVkQ%3d%3d&timestamp=1697562784296",
-				video: "https://www.youtube.com/watch?v=-3so6ueV8NA"
-			},
-			{
-				title: "Mousa, M. (2023) Enhanced Decision-Making Framework for the Southern States to Comply with the New Federal Retroreflectivity Pavement Rule. (Report No. IHS/CR-2023-1022). The Sam Houston State University Institute for Homeland Security.",
-				topic: ["#transportation"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/SHSU%20Pavement%20Marking-Final%20Paper.pdf?ver=bQ-rGSbFM_q4ZcRGT9Q7_Q%3d%3d&timestamp=1697562511123"
-			},
-			{
-				title: "Munoz, G. (2023) Safe & Secure Addressing Workplace Violence. (Report No. IHS/CR-2023-1009). The Sam Houston State University Institute for Homeland Security.",
-				topic: ["#wv"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/Safe%20and%20Secure%20Working%20Document%20V3c.pdf?ver=JnnSeyC5cIcp0mAM3q2OLw%3d%3d&timestamp=1697562312059"
-			},
-			{
-				title: "Karan, E. (2023) Mobile Emergency Power During and After Natural Disasters and Shortages. (Report No. IHS/CR-2023-1020). The Sam Houston State University Institute for Homeland Security.",
-				topic: ["#cm", "#energy"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/Paper%20Submission-IHS%20Format.pdf?ver=udln0y0x3a_MvlbQYRTVhw%3d%3d&timestamp=1697562136391",
-				video: "https://www.youtube.com/watch?v=7JOZmbKAkBY"
-			},
-			{
-				title: "Scott, M. (2023) Supply Chain Mapping for Emergency Management Decision-Making. (Report No. IHS/CR-2023-1027). The Sam Houston State University Institute for Homeland Security.",
-				topic: ["#supply-chain", "#cm"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/Mark%20Scott%20technical%20paper%20FINAL.pdf?ver=8N0UTJu8ftCymz9qXtfkYw%3d%3d&timestamp=1697561951303",
-				video: "https://www.youtube.com/watch?v=W5lcb_jbOC8"
-			},
-			{
-				title: "Dalvi, N. & Pham, V. (2023) Deep Learning Approaches for Fingerprint Verification	Classification Using Grayscale Images with Deep Learning. (Report No. IHS/CR-2023-1005). The Sam Houston State University Institute for Homeland Security.",
-				topic: ["#cybersecurity"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/IHS2023-Pham%20and%20Nikita.pdf?ver=zy0nEf7ZJxvJ6-XJ6mHubA%3d%3d&timestamp=1697561751657"
-			},
-			{
-				title: "Mastrangelo, M. (2023) Improving Texas Homeland Security: A Practical Framework for Joint Hospital - Chemical Industry Emergency Planning. (Report No. IHS/CR-2023-1019). The Sam Houston State University Institute for Homeland Security.",
-				topic: ["#chemical", "#healthcare"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/IHS_Mastrangelo_FinalPaper.pdf?ver=eZyfuiJHNLLhpHy996jgHw%3d%3d&timestamp=1697561422627",
-				video: "https://www.youtube.com/watch?v=UmrpnTj0Xa4"
-			},
-			{
-				title: "Kinney, A. B. & Lehmann, P. S. (2023) Mitigating Cybersecurity Threats to Hospitals and Healthcare Facilities. (Report No. IHS/CR-2023-1017). The Sam Houston State University Institute for Homeland Security.",
-				topic: ["#cybersecurity", "#healthcare"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/IHS%20Report%20-%20Lehmann%20and%20Kinney%202023.pdf?ver=amzjPpSPgDeyR_MNggT0kA%3d%3d&timestamp=1697561092661"
-			},
-			{
-				title: "Polsani, H., Jiang, H. (2023) DeepGray: A Novel Approach to Malware. (Report No. IHS/CR-2023-1014). The Sam Houston State University Institute for Homeland Security.",
-				topic: ["#cybersecurity"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/DeepGray_Malware_Classifcation_2023_HJ_Final.pdf?ver=zEFlaOvcbJMH1vL7CrFFbA%3d%3d&timestamp=1697560872422"
-			},
-			{
-				title: "Liu, Q., Celebi, N., Zhou, B., Chen, Z. (2023) Detecting Deepfakes under Anti-forensics Processing Mixed with Seam Carving and Copy-move Forgery in JPEG Images by Using SOTA Deep Learning Models. (Report No. IHS/CR-2023-1003). The Sam Houston State University Institute for Homeland Security.",
-				topic: ["#cybersecurity"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/deep_fake_IHS_paper_v2.pdf?ver=cmWD2PCmn2Dumu47Aj3IEQ%3d%3d&timestamp=1697560619573"
-			},
-			{
-				title: "Gupta, K., Varol, C., & Shashidhar, N. (2023) Cyber- Security Threat: Benchmarking Cybersecurity Response Procedure for Hospitals in Texas. (Report No. IHS/CR-2023-1012). The Sam Houston State University Institute for Homeland Security.",
-				topic: ["#cybersecurity", "#healthcare"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/Cyber-Security%20Threat%20-%20Benchmarking%20Cybersecurity%20Response%20Procedure%20for%20Hospitals%20in%20Texas%20-%20CV%20and%20NS.pdf?ver=F9a3V6wDxQJGCxNqHzKzNw%3d%3d&timestamp=1697558612616",
-				video: "https://www.youtube.com/watch?v=XhnedviecGs"
-			},
-			{
-				title: "Nodeland, B. (2023) Ensuring the Cybersecurity of Texas’ Critical Infrastructures. (Report No. IHS/CR-2023-1023). The Sam Houston State University Institute for Homeland Security.",
-				topic: ["#cybersecurity", "#supply-chain", "#transportation", "#energy", "#chemical"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/Cybersecurity%20%20Ensuring%20Texas%20Critical%20Infrastructure%20Nodeland.pdf?ver=Q5QfrFbm-y6dHjxyNeruzw%3d%3d&timestamp=1697557941392"
-			},
-			{
-				title: "Denham, M. A. & Denham M. V. (2023) Countering Workplace Violence in Healthcare: Voices from the Field. (Report No. IHS/CR-2023-1006). The Sam Houston State University Institute for Homeland Security.",
-				topic: ["#wv", "#healthcare"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/Countering%20Workplace%20Violence%20in%20Healthcare%20Voices%20From%20the%20Field%20by%20Denham%20and%20Denham.editeddocx.pdf?ver=o4wATbs2Kw_JGnqS7wo49Q%3d%3d&timestamp=1697557363776",
-				video: "https://www.youtube.com/watch?v=DvpY--aWD_Q"
-			},
-			{
-				title: "Gupta, K., Jinad, R., & Liu, Q. (2023) Comparative Analysis of NLP Model for Detecting Depression on Twitter. (Report No. IHS/CR-2023-1011). The Sam Houston State University Institute for Homeland Security.",
-				topic: ["#sna"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/Comparative_Analysis_of_Natural_Language_Processing_Models_for_detecting_depression_on_Twitter__Version_1026_%20(3).pdf?ver=53GwFKC1UxyUcxj4w4VD0Q%3d%3d&timestamp=1697556559764"
-			},
-			{
-				title: "Allen, B. (2023) Examining Use Cases for Drones (UAS/RPAS) at the Texas Medical Center. (Report No. IHS/CR-2023-1002). The Sam Houston State University Institute for Homeland Security.",
-				topic: ["#drone", "#healthcare"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/20230731_FinalDraft_SHSU%20Drone%20Research_BAllen.pdf?ver=SY_CamytXNJoxcnrLUYgqw%3d%3d&timestamp=1697555785004"
-			},
-			{
-				title: "Reese, N. A (2023) Crowded Sky New Threats and Opportunities for Homeland Security in the Cislunar Economy. (Report No. IHS/CR-2023-1024). The Sam Houston State University Institute for Homeland Security.",
-				topic: ["#transportation", "#cybersecurity"],
-				link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/2023.07.18%20SHSU%20Crowded%20Sky.pdf?ver=OQG9cZ3eDjG4iMtVdb2Yqw%3d%3d&timestamp=1697554910834",
-				video: "https://www.youtube.com/watch?v=RSR2VuaITUs"
-			},
 			{
 				title: "Tabkhivayghan, Hamed (2022). Algorithms and Dataset for Anomaly Detection in Smart Video Surveillance for Infrastructure Safety (Report No. IHS/CR-2022-2038). The Sam Houston State University Institute for Homeland Security.",
 				topic: ["#cybersecurity"],
@@ -378,12 +248,12 @@
 			}
 		}
 		
-		var topicCounter = 0;
+		var topicCounter = 1;
 		
 		function activate(topic) {
 			event.preventDefault();
 			const element = document.querySelector(topic);
-			if(element.classList.contains("selected")){
+			if(element.classList.contains("selected") && topicCounter > 1){
 				element.classList.remove("selected");
 				topicCounter--;
 				let item = topics.find((t, i) => {
@@ -392,7 +262,11 @@
 					}
 				})
 				search();
-			}else{
+			}
+			else if(element.classList.contains("selected") && topicCounter <= 1){
+				console.log("You cannot have less than 1 topic selected. Please select another before deselecting this topic.")
+			}
+			else{
 				element.classList.add("selected");
 				topicCounter++;
 				let item = topics.find((t, i) => {
@@ -444,22 +318,12 @@
 			document.getElementById("paper-container").innerHTML = "";
 		}
 
-		function orangePortions(fulltText, orangeList) {
-			var htmlBuilt = '';
-			var lastIndex = 0;
-			var locations = [];
-			orangeList.forEach((term)=>{
-				locations.push([fulltText.toLocaleLowerCase().indexOf(term), term.length]);
-			});
-			locations.sort((a, b) => (a[0]-b[0]));
-			locations.forEach((location)=>{
-				var firstPart = fulltText.slice(lastIndex, location[0]);
-				lastIndex = location[0] + location[1];
-				var orangePart = fulltText.slice(location[0], lastIndex);
-				htmlBuilt += `${firstPart}<span style='color: #f05432'>${orangePart}</span>`;
-			});
-			htmlBuilt += fulltText.slice(lastIndex);
-			return htmlBuilt;
+		function orangePortion(fulltText, orangeText) {
+			var startOforangeText = fulltText.toLocaleLowerCase().indexOf(orangeText.toLocaleLowerCase());
+			var firstPart = fulltText.slice(0, startOforangeText);
+			var orangePart = fulltText.slice(startOforangeText, startOforangeText + orangeText.length);
+			var lastPart = fulltText.slice(startOforangeText + orangeText.length);
+			return `${firstPart}<span style='color: #f05432'>${orangePart}</span>${lastPart}`;
 		}
 
 		function search(){
@@ -472,23 +336,13 @@
 					selectedCategories.push(category.id);
 				}
 			});
-			console.log(selectedCategories)
 			var searchText = document.getElementById("search").value.toLocaleLowerCase();
 			papers.forEach((paper)=>{
-				var matches = []
-				for(var term = 0; term < searchList.length; term++){
-					if(paper.title.toLocaleLowerCase().includes(searchList[term])){
-						matches.push(searchList[term])
-					}
-				}
-				if(searchText && matches.length > 0 || searchText === ''){
-					for(var i = 0; i < paper.topic.length; i++){
-						if(selectedCategories.includes(paper.topic[i]) || selectedCategories.length == 0){
+				if(paper.title.toLocaleLowerCase().includes(searchText)){
+					for(i = 0; i < paper.topic.length; i++){
+						if(selectedCategories.includes(paper.topic[i])){
 							if(searchText){
-								resultList.push([
-									matches.length,
-									articleTemplate(orangePortions(paper.title, matches), paper.video, paper.link)
-								]);
+								results.innerHTML += articleTemplate(orangePortion(paper.title, searchText), paper.video, paper.link);
 							}else{
 								results.innerHTML += articleTemplate(paper.title, paper.video, paper.link);
 							}
@@ -498,17 +352,10 @@
 					}
 				}
 			});
-			if(searchText){
-				resultList.sort((a, b) => (b[0]-a[0]));
-				resultList.forEach((result)=>{
-					results.innerHTML += result[1];
-				});
-			}
 			if(resultCount == 0){
 				results.innerHTML = "<div>No results Found</div>";
 			}
-			var reshtml = `${resultCount} result${resultCount != 1 ? 's' : ''}`+
-			`${topicCounter == 0 ? ', unfiltered.' : ` with ${topicCounter} active filter${topicCounter == 1 ? '' : 's'}.`}`;
+			var reshtml = `${resultCount} result${resultCount != 1 ? 's' : ''}`
 			document.getElementById("resultCount").innerHTML = reshtml;
 			var searchFor = document.getElementById("search-for");
 			var clearText = document.getElementById("clear-text");
