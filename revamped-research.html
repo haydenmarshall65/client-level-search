@@ -446,8 +446,7 @@
           var firstPart = fulltText.slice(lastIndex, location[0]);
           lastIndex = location[0] + location[1];
           var orangePart = fulltText.slice(location[0], lastIndex);
-          htmlBuilt += `${firstPart}
-		<span style='color: #f05432'>${orangePart}</span>`;
+          htmlBuilt += `${firstPart}<span style='color: #f05432'>${orangePart}</span>`;
         });
         htmlBuilt += fulltText.slice(lastIndex);
         return htmlBuilt;
@@ -464,17 +463,26 @@
           }
         });
         var searchText = document.getElementById("search").value.toLocaleLowerCase().trim();
+        if(!/^[a-zA-Z0-9 ]*$/.test(searchText) && searchText){
+          window.alert("Search terms can only contain letters and numbers");
+          document.getElementById("search").value = '';
+          searchText = '';
+        }
         var searchList = searchText.split(" ");
-        searchList = [...new Set(searchList)];
+        var initialSearchLength = searchList.length;
+        searchList = [...new Set(searchList)].filter((term)=>(term.length > 2));
+        if(initialSearchLength != searchList.length && searchText){
+          window.alert("Duplicate terms and terms with less than 3 characters are ignored");
+        }
         var resultList = [];
         papers.forEach((paper) => {
-          var matches = []
+          var matches = [];
           for (var term = 0; term < searchList.length; term++) {
             if (paper.title.toLocaleLowerCase().includes(searchList[term])) {
-              matches.push(searchList[term])
+              matches.push(searchList[term]);
             }
           }
-          if (searchText && matches.length > 0 || searchText === '') {
+          if (searchText && matches.length > 0 || searchList.length == 0) {
             for (var i = 0; i < paper.topic.length; i++) {
               if (selectedCategories.includes(paper.topic[i]) || selectedCategories.length == 0) {
                 if (searchText) {
@@ -498,16 +506,15 @@
           });
         }
         if (resultCount == 0) {
-          results.innerHTML = " < div > No results Found < /div>";
+          results.innerHTML = " <div> No results Found </div>";
         }
         var reshtml = `${resultCount} result${resultCount != 1 ? 's' : ''}` + `${topicCounter == 0 ? ', unfiltered.' : ` with ${topicCounter} active filter${topicCounter == 1 ? '' : 's'}.`}`;
         document.getElementById("resultCount").innerHTML = reshtml;
         var searchFor = document.getElementById("search-for");
         var clearText = document.getElementById("clear-text");
-        if (searchText) {
-          searchFor.innerHTML = ` searching for "${searchText}".`;
-          clearText.innerHTML = `
-		<u>clear search</u>`;
+        if (searchList.length != 0) {
+          searchFor.innerHTML = ` searching for "${searchList}".`;
+          clearText.innerHTML = `<u>clear search</u>`;
         } else {
           searchFor.innerHTML = ``;
           clearText.innerHTML = '';
