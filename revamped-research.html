@@ -445,21 +445,26 @@
         document.getElementById("paper-container").innerHTML = "";
       }
 
-      function orangePortions(fulltText, orangeList) {
+      function orangePortions(fullText, orangeList) {
         var htmlBuilt = '';
         var lastIndex = 0;
         var locations = [];
+        var readText = fullText;
         orangeList.forEach((term) => {
-          locations.push([fulltText.toLocaleLowerCase().indexOf(term), term.length]);
+          var index = readText.toLocaleLowerCase().indexOf(term);
+          if(index != -1){
+            locations.push([index, term.length]);
+            readText = readText.toLocaleLowerCase().replace(term, `${new Array(term.length + 1).join('*')}`);
+          }
         });
         locations.sort((a, b) => (a[0] - b[0]));
         locations.forEach((location) => {
-          var firstPart = fulltText.slice(lastIndex, location[0]);
+          var firstPart = fullText.slice(lastIndex, location[0]);
           lastIndex = location[0] + location[1];
-          var orangePart = fulltText.slice(location[0], lastIndex);
+          var orangePart = fullText.slice(location[0], lastIndex);
           htmlBuilt += `${firstPart}<span style='color: #f05432'>${orangePart}</span>`;
         });
-        htmlBuilt += fulltText.slice(lastIndex);
+        htmlBuilt += fullText.slice(lastIndex);
         return htmlBuilt;
       }
 
@@ -485,12 +490,15 @@
         if(initialSearchLength != searchList.length && searchText){
           window.alert("Duplicate terms and terms with less than 3 characters are ignored");
         }
+        searchList.sort((a, b) => (b.length - a.length));
         var resultList = [];
         papers.forEach((paper) => {
           var matches = [];
+          var tempTitle = paper.title;
           for (var term = 0; term < searchList.length; term++) {
-            if (paper.title.toLocaleLowerCase().includes(searchList[term])) {
+            if (tempTitle.toLocaleLowerCase().includes(searchList[term])) {
               matches.push(searchList[term]);
+              tempTitle = tempTitle.toLocaleLowerCase().replace(searchList[term], `${new Array(searchList[term].length + 1).join('*')}`);
             }
           }
           if (searchText && matches.length > 0 || searchList.length == 0) {
@@ -512,6 +520,7 @@
         });
         if (searchText) {
           resultList.sort((a, b) => (b[0] - a[0]));
+          console.log(resultList)
           resultList.forEach((result) => {
             results.innerHTML += result[1];
           });
