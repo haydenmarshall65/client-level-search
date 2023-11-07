@@ -124,12 +124,11 @@
         checked: false
       }];
       const papers = [
-        /*{
-          title: "bitna kim paper missing citation",
-          topic: [""],
-          link: "",
-          video: ""
-        },*/
+        {
+          title: "Kim, B. (2023) Violence and Harassment in the Workplace: Umbrella Reviews. (Report No. IHS/CR-2023-1030). The Sam Houston State University Institute for Homeland Security.",
+          topic: ["#wv"],
+          link: "https://ihsonline.org/Portals/0/Tech Papers/2023_Papers/Technical Report - Bitna Kim (2023. Summer).pdf?ver=1ZRNgG9uZaFlTaikuEnaAw%3d%3d"
+        },
         {
           title: "Leipnik, M.R. (2023) Assessing and Bolstering Critical Energy Infrastructure Security Using Geo-Spatial Technologies. (Report No. IHS/CR-2023-1031). The Sam Houston State University Institute for Homeland Security.",
           topic: ["#energy", "#cm", "#supply-chain"],
@@ -144,7 +143,8 @@
         {
           title: "Mouco, A. & Ruddell, B. L., Ginsburg, S. (2023) Resilience to High Consequence Cascading Failures of Critical Infrastructure Networks. (Report No. IHS/CR-2023-1015). The Sam Houston State University Institute for Homeland Security.",
           topic: ["#cybersecurity", "#cm", "#energy"],
-          link: "https://ihsonline.org/Portals/0/Tech Papers/2023_Papers/Resilience Report V21.pdf"
+          link: "https://ihsonline.org/Portals/0/Tech Papers/2023_Papers/Resilience Report V21.pdf",
+          video: "https://www.youtube.com/watch?v=lJAavph74og"
         },
         {
           title: "Ruddell, B. L. (2023) Rationale and Process for Continuity of the Economy. (Report No. IHS/CR-2023-1021). The Sam Houston State University Institute for Homeland Security.",
@@ -260,7 +260,8 @@
         }, {
           title: "Allen, B. (2023) Examining Use Cases for Drones (UAS/RPAS) at the Texas Medical Center. (Report No. IHS/CR-2023-1002). The Sam Houston State University Institute for Homeland Security.",
           topic: ["#drone", "#healthcare"],
-          link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/20230731_FinalDraft_SHSU%20Drone%20Research_BAllen.pdf?ver=SY_CamytXNJoxcnrLUYgqw%3d%3d&timestamp=1697555785004"
+          link: "https://ihsonline.org/Portals/0/Tech%20Papers/2023_Papers/20230731_FinalDraft_SHSU%20Drone%20Research_BAllen.pdf?ver=SY_CamytXNJoxcnrLUYgqw%3d%3d&timestamp=1697555785004",
+          video: "https://www.youtube.com/watch?v=1jnFMcyDFoQ"
         }, {
           title: "Reese, N. A (2023) Crowded Sky New Threats and Opportunities for Homeland Security in the Cislunar Economy. (Report No. IHS/CR-2023-1024). The Sam Houston State University Institute for Homeland Security.",
           topic: ["#transportation", "#cybersecurity"],
@@ -379,11 +380,6 @@
           title: "Fitzgerald, Kelly (2023). A Framework For Understanding Disaster – Related Violence Against The Public Health Workforce: Literature Scan and Analysis. (Report No. IHS/CR-2022-2053). The Sam Houston State University Institute for Homeland Security.",
           topic: ["#wv", "#cm", "#healthcare"],
           link: "https://ihsonline.org/Portals/0/Tech%20Papers/A_Framework_for_Understanding_Disaster-Related_Violence_Against_the_Public_Health_Workforce.pdf"
-        }, {
-          title: "Allen, Bryce (2023). Examining Use Cases for Drones (UAS/RPAS) at the Texas Medical Center. The Sam Houston State University Institute for Homeland Security.",
-          topic: ["#drone", "#healthcare"],
-          link: "https://ihsonline.org/Portals/0/Tech Papers/Drone Research_BAllen.pdf?ver=E8yqIVskvgd7wJs7_BtLrw%3d%3d",
-          video: "https://www.youtube.com/watch?v=1jnFMcyDFoQ"
         }
       ];
       for (let i = 0; i < topics.length; i++) {
@@ -456,21 +452,26 @@
         document.getElementById("paper-container").innerHTML = "";
       }
 
-      function orangePortions(fulltText, orangeList) {
+      function orangePortions(fullText, orangeList) {
         var htmlBuilt = '';
         var lastIndex = 0;
         var locations = [];
+        var readText = fullText;
         orangeList.forEach((term) => {
-          locations.push([fulltText.toLocaleLowerCase().indexOf(term), term.length]);
+          var index = readText.toLocaleLowerCase().indexOf(term);
+          if(index != -1){
+            locations.push([index, term.length]);
+            readText = readText.toLocaleLowerCase().replace(term, `${new Array(term.length + 1).join('*')}`);
+          }
         });
         locations.sort((a, b) => (a[0] - b[0]));
         locations.forEach((location) => {
-          var firstPart = fulltText.slice(lastIndex, location[0]);
+          var firstPart = fullText.slice(lastIndex, location[0]);
           lastIndex = location[0] + location[1];
-          var orangePart = fulltText.slice(location[0], lastIndex);
+          var orangePart = fullText.slice(location[0], lastIndex);
           htmlBuilt += `${firstPart}<span style='color: #f05432'>${orangePart}</span>`;
         });
-        htmlBuilt += fulltText.slice(lastIndex);
+        htmlBuilt += fullText.slice(lastIndex);
         return htmlBuilt;
       }
 
@@ -496,12 +497,15 @@
         if(initialSearchLength != searchList.length && searchText){
           window.alert("Duplicate terms and terms with less than 3 characters are ignored");
         }
+        searchList.sort((a, b) => (b.length - a.length));
         var resultList = [];
         papers.forEach((paper) => {
           var matches = [];
+          var tempTitle = paper.title;
           for (var term = 0; term < searchList.length; term++) {
-            if (paper.title.toLocaleLowerCase().includes(searchList[term])) {
+            if (tempTitle.toLocaleLowerCase().includes(searchList[term])) {
               matches.push(searchList[term]);
+              tempTitle = tempTitle.toLocaleLowerCase().replace(searchList[term], `${new Array(searchList[term].length + 1).join('*')}`);
             }
           }
           if (searchText && matches.length > 0 || searchList.length == 0) {
@@ -523,6 +527,7 @@
         });
         if (searchText) {
           resultList.sort((a, b) => (b[0] - a[0]));
+          console.log(resultList)
           resultList.forEach((result) => {
             results.innerHTML += result[1];
           });
