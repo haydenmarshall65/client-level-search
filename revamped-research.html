@@ -9,7 +9,10 @@
   <!--Healthcare, Transportation, Energy, Chemical, Drones, SNA, Crisis Management, Cybersecurity, Supply Chain, Workplace Violence-->
   <body>
     <div id="search-container">
-      <input id="search" placeholder="Search..." title="Search"></input>
+      <div id="input-container">
+        <label for="search">Search</label>
+        <input id="search" placeholder="Search..." title="Search"></input>
+      </div>
       <button id="search-button" aria-label="Press Enter to search">
         <i class="fa-solid fa-magnifying-glass fa-2x"></i>
       </button>
@@ -588,7 +591,7 @@
 				<hr style="border:1px solid white; width:100%;">
 					<div class="research-buttons">
 						<button class="research-btn" ${video ? `onclick="window.open('${video}')"` :
-              `style="background:gray;" disabled`}>
+              `style="background:gray;border:1px solid #A9A9A9" disabled`}>
 							<i class="fa-solid fa-circle-play"></i>
                 &nbsp;Video
 						</button>

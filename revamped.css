@@ -115,10 +115,14 @@
 		.research-btn{
 			padding:10px;
 			border-radius:10px;
-			background:#f05432;
-			border:none;
+			border:1px solid #f05432;
+			background-color: #11192e;
 			color:white;
 			font-weight:bold;
+		}
+
+		.research-btn:hover, .research-btn:focus{
+			background: #0b111f;
 		}
 
 .topic-accordion:hover, .topic-card:hover {
@@ -145,8 +149,15 @@
 			position: relative;
 		}
 
-#search-container input{
-	width:90%;
+		#input-container{
+			display: flex;
+			width:90%;
+			flex-direction: column;
+			align-items: start;
+		}
+
+#input-container input{
+	width: 100%;
 	padding:15px;
 	font-size:1.5em;
 	border-radius:20px;
