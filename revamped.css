@@ -119,10 +119,15 @@
 			background-color: #11192e;
 			color:white;
 			font-weight:bold;
+			transition: box-shadow 0.1s ease-out;
 		}
 
-		.research-btn:hover, .research-btn:focus{
+		.research-btn:hover {
 			background: #0b111f;
+		}
+
+		.research-btn:focus{
+			box-shadow: 0 0 0 4px rgba(240, 113, 50, 0.7);
 		}
 
 .topic-accordion:hover, .topic-card:hover {
